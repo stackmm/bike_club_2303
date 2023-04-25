@@ -26,4 +26,32 @@ RSpec.describe BikeClub do
     club.add_biker(biker2)
     expect(club.bikers).to eq([biker1, biker2])
   end
+
+  it "can tell which biker has logged the most rides" do
+    club = BikeClub.new("The Squad")
+    biker1 = Biker.new("Kenny", 30)
+    biker2 = Biker.new("Athena", 15)
+    ride1 = Ride.new({name: "Walnut Creek Trail", distance: 5, loop: false, terrain: :hills})
+    ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+    biker1.learn_terrain!(:gravel)
+    biker1.learn_terrain!(:hills)
+    biker2.learn_terrain!(:gravel)
+    biker2.learn_terrain!(:hills)
+
+    club.add_biker(biker1)
+    club.add_biker(biker2)
+    biker1.log_ride(ride1, 92.5)
+    biker1.log_ride(ride1, 91.1)
+    biker1.log_ride(ride2, 60.9)
+    biker1.log_ride(ride2, 61.6)
+    biker2.log_ride(ride1, 97.0)
+    biker2.log_ride(ride2, 65.0)
+    expect(club.most_rides).to eq(biker1)
+    biker2.log_ride(ride1, 55.0)
+    biker2.log_ride(ride2, 65.0)
+    biker2.log_ride(ride2, 35.0)
+    expect(club.most_rides).to eq(biker2)
+    biker1.log_ride(ride1, 77.1)
+    expect(club.most_rides).to eq(biker1)
+  end
 end
