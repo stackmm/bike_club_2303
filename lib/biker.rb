@@ -7,4 +7,8 @@ class Biker
     @rides = {} # can log a previous ride with an associated time
     @acceptable_terrain = [] # a list of acceptable terrain for that biker
   end
+
+  def learn_terrain!(terrain)
+    @acceptable_terrain << terrain
+  end
 end
