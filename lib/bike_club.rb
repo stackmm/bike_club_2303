@@ -11,4 +11,10 @@ class BikeClub
     @bikers # asked for a return value of an Array of Biker Objects
   end
 
+  def most_rides
+    @bikers.max_by do |biker|
+      biker.rides.values.flatten.length
+    end
+  end
+
 end
